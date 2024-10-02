@@ -1,0 +1,100 @@
+/* Estilos para as mensagens de erro */
+.error.invalid-feedback {
+  display: block;
+  margin-top: 5px;
+  color: #dc3545;
+}
+
+.select2-container--default .select2-selection--single.is-invalid {
+  border-color: #dc3545;
+}
+
+.select2-container--default
+  .select2-selection--single.is-invalid
+  .select2-selection__rendered {
+  color: #dc3545;
+}
+
+.select2-container--default
+  .select2-selection--single.is-invalid
+  .select2-selection__arrow
+  b {
+  border-color: #dc3545 transparent transparent transparent;
+  height: calc(1.8125rem + 2px);
+}
+
+.select2-container--default .select2-selection--multiple.is-invalid {
+  border-color: #dc3545;
+}
+
+.select2-container .select2-dropdown {
+  z-index: 9999;
+}
+
+.select2-container--default .select2-selection--single {
+  height: calc(1.8125rem + 2px);
+  padding: 0.375rem 0.75rem;
+  font-size: 0.875rem;
+  border: 2px solid #ebedf2;
+  border-radius: 0.25rem;
+  display: flex;
+  align-items: center;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+  line-height: 1;
+  padding-left: 0;
+  color: #000000;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+  height: calc(1.8125rem + 2px);
+}
+
+.select2-dropdown {
+  border-radius: 0.25rem;
+  border: 2px solid #ebedf2;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+  background-color: #FC4041;
+  border: 1px solid #000;
+  color: #fff;
+  border-radius: 4px;
+  cursor: default;
+  float: left;
+  margin-right: 5px;
+  margin-top: 5px;
+  padding: 0 5px;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: bold;
+  margin-right: 2px;
+}
+
+
+.dropzone {
+  border: 2px dashed #e0e0e0;
+  border-radius: 5px;
+  background: #f9f9f9;
+  text-align: center;
+  padding: 10px;
+  /* Reduzindo o padding para diminuir a altura */
+  height: auto;
+  /* Assegurando que a altura seja ajustada automaticamente */
+}
+
+.dz-message h2 {
+  font-size: 1.2rem;
+  /* Ajustando o tamanho do texto */
+  margin: 0.5rem 0;
+  /* Ajustando as margens */
+}
+
+.dropzone {
+  padding: 8px px 16px !important;
+}
