@@ -7,59 +7,6 @@ $dados = array(
 
 <?php include('../layouts/body.php') ?>
 
-<?php
-$tiposMercadoriaArray = array();
-$resultado = $conexao->query("SELECT ID, DESCRICAO FROM EST_TIPOS_MERCADORIA WHERE ATIVO = 'S' AND EMPRESA_ID = '$IDEMPRESAUSUARIOMODEL'");
-if (!$resultado) {
-    die("Erro na consulta: " . $conexao->error);
-}
-
-while ($row = $resultado->fetch_assoc()) {
-    $tiposMercadoriaArray[] = $row;
-}
-
-$unidadeMedidaArray = array();
-$resultado = $conexao->query("SELECT ID, SIGLA, DESCRICAO FROM EST_UNIDADES_MEDIDA WHERE ATIVO = 'S' AND EMPRESA_ID = '$IDEMPRESAUSUARIOMODEL'");
-if (!$resultado) {
-    die("Erro na consulta: " . $conexao->error);
-}
-
-while ($row = $resultado->fetch_assoc()) {
-    $unidadeMedidaArray[] = $row;
-}
-
-$gruposArray = array();
-$resultado = $conexao->query("SELECT ID, DESCRICAO FROM EST_GRUPOS WHERE ATIVO = 'S' AND EMPRESA_ID = '$IDEMPRESAUSUARIOMODEL'");
-if (!$resultado) {
-    die("Erro na consulta: " . $conexao->error);
-}
-
-while ($row = $resultado->fetch_assoc()) {
-    $gruposArray[] = $row;
-}
-
-$coresArray = array();
-$resultado = $conexao->query("SELECT ID, DESCRICAO FROM EST_CORES WHERE ATIVO = 'S' AND EMPRESA_ID = '$IDEMPRESAUSUARIOMODEL'");
-if (!$resultado) {
-    die("Erro na consulta: " . $conexao->error);
-}
-
-while ($row = $resultado->fetch_assoc()) {
-    $coresArray[] = $row;
-}
-
-$tamanhosArray = array();
-$resultado = $conexao->query("SELECT ID, SIGLA, DESCRICAO FROM EST_TAMANHOS WHERE ATIVO = 'S' AND EMPRESA_ID = '$IDEMPRESAUSUARIOMODEL'");
-if (!$resultado) {
-    die("Erro na consulta: " . $conexao->error);
-}
-
-while ($row = $resultado->fetch_assoc()) {
-    $tamanhosArray[] = $row;
-}
-
-?>
-
 <div class="col-12">
     <div class="card card-dark">
 

@@ -548,22 +548,20 @@ function updateTfootFromTable(tableId, columnsToSum) {
   let totals = new Array(columnsToSum.length).fill(0);
 
   // Itera por cada linha visível da tabela e acumula os valores nas colunas especificadas
-  table
-    .rows()
-    .every(function (rowIdx, tableLoop, rowLoop) {
-      let data = this.data();
-      columnsToSum.forEach(function (colIndex, i) {
-        let value =
-          parseFloat(
-            data[colIndex]
-              .replace(/\./g, "")
-              .replace(",", ".")
-              .replace("R$", "")
-              .trim()
-          ) || 0;
-        totals[i] += value;
-      });
+  table.rows().every(function (rowIdx, tableLoop, rowLoop) {
+    let data = this.data();
+    columnsToSum.forEach(function (colIndex, i) {
+      let value =
+        parseFloat(
+          data[colIndex]
+            .replace(/\./g, "")
+            .replace(",", ".")
+            .replace("R$", "")
+            .trim()
+        ) || 0;
+      totals[i] += value;
     });
+  });
 
   // Preenche o tfoot com os valores totais
   let tfoot = $(tableId).find("tfoot");
@@ -620,4 +618,11 @@ function numberFormat(valor) {
   }
 
   return valor;
+}
+
+// Função para formatar a data de "AAAA-MM-DD" para "DD/MM/AAAA"
+function formatDate(dateTime) {
+  let datePart = dateTime.split(" ")[0]; // Pega apenas a parte da data (ignora o tempo)
+  let [year, month, day] = datePart.split("-"); // Separa ano, mês e dia
+  return `${day}/${month}/${year}`; // Retorna no formato desejado
 }

@@ -39,6 +39,7 @@ while ($row = $resultado->fetch_assoc()) {
     $davStatusArray[] = $row;
 }
 
+
 $produtosArray = array();
 $resultado = $conexao->query("SELECT 
     A.ID, 
@@ -62,7 +63,7 @@ while ($row = $resultado->fetch_assoc()) {
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="<?= URL_BASE_HOST ?>/view/admin/comercial/davs.php"><?= $dados['NomePagina'] ?></a></li>
-            <li class="breadcrumb-item active" aria-current="page">Cadastrar</li>
+            <li class="breadcrumb-item active" aria-current="page">Editar Dav: #<?= $_GET['i'] ?></li>
         </ol>
     </nav>
 
@@ -131,7 +132,7 @@ while ($row = $resultado->fetch_assoc()) {
                         </div>
                     </div>
 
-                    <button onclick="cadastrarDav()" type="button" class="btn btn-success mt-4 waves-effect">Salvar</button>
+                    <button id="btnEditarDav" onclick="editarDav()" type="button" class="btn btn-success mt-4 waves-effect">Salvar</button>
 
                 </div>
 
@@ -299,6 +300,17 @@ while ($row = $resultado->fetch_assoc()) {
 
 
 <script>
+    $(function() {
+
+        // Verifica se os parâmetros estão presentes e não estão vazios
+        if (!(new URLSearchParams(window.location.search).get('i'))) {
+            alert('Dados inválidos');
+            window.location = '<?= URL_BASE_HOST ?>/view/admin/comercial/davs.php';
+        } else {
+            buscarDav(new URLSearchParams(window.location.search).get('i'));
+        }
+    });
+
     let contadorProduto = 0;
     let contadorPagamento = 0;
 
@@ -313,6 +325,123 @@ while ($row = $resultado->fetch_assoc()) {
         produtos: [],
         pagamentos: [],
     };
+
+    function buscarDav(id) {
+        // Cria um FormData para enviar os dados
+        const form_data = new FormData();
+        form_data.append('JQueryFunction', 'buscarDav');
+        form_data.append('id', id);
+
+        $.ajax({
+            url: '<?= URL_BASE_HOST ?>/http/model/admin/comercial/JQ_Davs_model.php',
+            dataType: 'json',
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: form_data,
+            type: 'post',
+            success: function(response) {
+                if (response.statusHttp == 'success') {
+                    // Preenche os campos principais
+                    $('#cliente').val(response.davs.id_cliente).trigger("change");
+                    $('#validade').val(response.davs.validade.split(' ')[0]).trigger("change");
+                    $('#outrasDespesas').val(moedaFormat(response.davs.outras_despesas));
+                    $('#frete').val(moedaFormat(response.davs.frete));
+                    $('#observacoes').val(response.davs.observacoes);
+                    $('#status').val(response.davs.status_id).trigger("change");
+
+                    if(response.davs.permite_alterar == 'N'){
+                        $('#btnEditarDav').remove();
+                    }
+                    preencherDados();
+
+                    // Inicializa o array de produtos se ainda não estiver definido
+                    if (!Array.isArray(dav.produtos)) {
+                        dav.produtos = [];
+                    }
+
+                    // Verifica se 'produtos' existe e se é um array antes de iterar
+                    if (Array.isArray(response.davs.produtos)) {
+                        response.davs.produtos.forEach(function(prod) {
+                            let produto = {
+                                ordem: parseFloat(dav.produtos.length + 1),
+                                id: parseFloat(prod.produto_id),
+                                descricao: prod.produto,
+                                quantidade: parseFloat(prod.quantidade),
+                                valor: parseFloat(prod.valor_unitario),
+                                desconto: parseFloat(prod.desconto),
+                                valorTotal: parseFloat(prod.valor_total)
+                            };
+
+                            dav.produtos.push(produto);
+
+                            let rowData = [
+                                produto.ordem,
+                                produto.descricao,
+                                moedaFormat(produto.quantidade),
+                                moedaFormat(produto.valor),
+                                moedaFormat(produto.desconto),
+                                moedaFormat(produto.valorTotal),
+                                `
+                                    <a class="btn btn-danger btn-action" title="Deletar" onclick="removerProduto(${produto.ordem - 1})">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                `
+                            ];
+
+                            updateRowInTable('#tabelaDeProdutos', 'rowProduto_', produto.ordem - 1, rowData);
+                            updateTfootFromTable('#tabelaDeProdutos', [2, 3, 4, 5]);
+                            recalcularIndices('#tabelaDeProdutos', 'rowProduto_', 'removerProduto');
+                            atualizarTotal();
+                        });
+                    }
+
+                    // Inicializa o array de pagamentos se ainda não estiver definido
+                    if (!Array.isArray(dav.pagamentos)) {
+                        dav.pagamentos = [];
+                    }
+
+                    // Verifica se 'pagamentos' existe e se é um array antes de iterar
+                    if (Array.isArray(response.davs.pagamentos)) {
+                        response.davs.pagamentos.forEach(function(pag) {
+
+
+                            let pagamento = {
+                                ordem: dav.pagamentos.length + 1,
+                                id: parseFloat(pag.forma_pagamento_id),
+                                descricao: pag.forma_pagamento,
+                                vencimento: pag.vencimento.split(' ')[0],
+                                valor: parseFloat(pag.valor),
+
+                            };
+
+                            dav.pagamentos.push(pagamento);
+
+                            let rowData = [
+                                parseFloat(pagamento.ordem),
+                                pagamento.descricao,
+                                moedaFormat(pagamento.valor),
+                                pagamento.vencimento,
+                                `
+                                    <a class="btn btn-danger btn-action" title="Deletar" onclick="removerPagamento(${pagamento.ordem - 1})">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                `
+                            ];
+
+
+                            updateRowInTable('#tabelaDePagamentos', 'rowPagamento_', produto.ordem - 1, rowData);
+                            updateTfootFromTable('#tabelaDePagamentos', [2]);
+                            recalcularIndices('#tabelaDePagamentos', 'rowPagamento_', 'removerPagamento');
+                            atualizarTotal();
+                        });
+                    }
+                } else {
+                    window.location = '<?= URL_BASE_HOST ?>/view/admin/comercial/davs.php';
+                }
+            }
+        });
+    }
 
     function preencherDados() {
         dav.cliente = numberFormat($('#cliente').val());
@@ -548,7 +677,7 @@ while ($row = $resultado->fetch_assoc()) {
         $('#valorTotal').val(moedaFormat(valorTotal));
     }
 
-    function cadastrarDav() {
+    function editarDav() {
         const fieldsToValidate = [
             'cliente', 'status', 'validade', 'outrasDespesas', 'frete'
         ];
@@ -603,8 +732,9 @@ while ($row = $resultado->fetch_assoc()) {
         }
 
         const form_data = new FormData();
-        form_data.append('JQueryFunction', 'cadastrarDav');
+        form_data.append('JQueryFunction', 'editarDav');
         form_data.append('dav', JSON.stringify(dav));
+        form_data.append('id', new URLSearchParams(window.location.search).get('i'));
 
         // Método post do jQuery
         $.ajax({
