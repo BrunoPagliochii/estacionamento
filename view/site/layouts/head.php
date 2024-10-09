@@ -3,22 +3,22 @@ if (file_exists('../vendor/autoload.php')) {
 	require_once '../lib/BaseUrl.php';
 	require_once '../vendor/autoload.php';
 	require_once '../lib/PHP_conecta.php';
-	include_once '../http/model/Helper_model.php';
+	include_once '../http/model/admin/Helper_model.php';
 } else if (file_exists('../../lib/BaseUrl.php')) {
 	require_once '../../lib/BaseUrl.php';
 	require_once '../../vendor/autoload.php';
 	require_once '../../lib/PHP_conecta.php';
-	include_once '../../http/model/Helper_model.php';
+	include_once '../../http/model/admin/Helper_model.php';
 } else if (file_exists('../../../lib/BaseUrl.php')) {
 	require_once '../../../lib/BaseUrl.php';
 	require_once '../../../vendor/autoload.php';
 	require_once '../../../lib/PHP_conecta.php';
-	include_once '../../../http/model/Helper_model.php';
+	include_once '../../../http/model/admin/Helper_model.php';
 } else if (file_exists('../../../lib/BaseUrl.php')) {
 	require_once '../../../lib/BaseUrl.php';
 	require_once '../../../vendor/autoload.php';
 	require_once '../../../lib/PHP_conecta.php';
-	include_once '../../../http/model/Helper_model.php';
+	include_once '../../../http/model/admin/Helper_model.php';
 }
 ?>
 
