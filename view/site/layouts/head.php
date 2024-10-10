@@ -3,22 +3,14 @@ if (file_exists('../vendor/autoload.php')) {
 	require_once '../lib/BaseUrl.php';
 	require_once '../vendor/autoload.php';
 	require_once '../lib/PHP_conecta.php';
-	include_once '../http/model/admin/Helper_model.php';
 } else if (file_exists('../../lib/BaseUrl.php')) {
 	require_once '../../lib/BaseUrl.php';
 	require_once '../../vendor/autoload.php';
 	require_once '../../lib/PHP_conecta.php';
-	include_once '../../http/model/admin/Helper_model.php';
 } else if (file_exists('../../../lib/BaseUrl.php')) {
 	require_once '../../../lib/BaseUrl.php';
 	require_once '../../../vendor/autoload.php';
 	require_once '../../../lib/PHP_conecta.php';
-	include_once '../../../http/model/admin/Helper_model.php';
-} else if (file_exists('../../../lib/BaseUrl.php')) {
-	require_once '../../../lib/BaseUrl.php';
-	require_once '../../../vendor/autoload.php';
-	require_once '../../../lib/PHP_conecta.php';
-	include_once '../../../http/model/admin/Helper_model.php';
 }
 ?>
 
@@ -31,7 +23,9 @@ if (file_exists('../vendor/autoload.php')) {
 	<title><?= $dados['NomePagina'] ?? 'AllDrip' ?></title>
 
 	<?php
-	if (file_exists('../layouts/styles.php')) {
+	if (file_exists('layouts/styles.php')) {
+		include('layouts/styles.php');
+	} else if (file_exists('../layouts/styles.php')) {
 		include('../layouts/styles.php');
 	} else if (file_exists('../../layouts/styles.php')) {
 		include('../../layouts/styles.php');

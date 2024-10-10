@@ -1,5 +1,6 @@
+</div>
+
 </section>
-<?php include('articles/sidebarConfig.php') ?>
 
 </div>
 
