@@ -1,3 +1,9 @@
+<?php
+$dados = array(
+    'NomePagina' => 'ALL DRIP - Contato',
+);
+?>
+
 <?php include('layouts/body.php') ?>
 
 <div class="card">

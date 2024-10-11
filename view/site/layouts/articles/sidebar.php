@@ -4,7 +4,7 @@
         <div class="sidebar-brand h-100">
             <a href="<?= URL_BASE_HOST ?>/view/site/index.php">
                 <div class="sidebar-user-picture">
-                    <img alt="image" src="<?= URL_BASE_HOST ?>/public/assets/img/logo.png" />
+                    <img width="150" alt="image" src="<?= URL_BASE_HOST ?>/public/assets/img/logo.png" />
                 </div>
             </a>
         </div>
@@ -15,15 +15,28 @@
 
                 <a href="javascript:void(0)" class="nav-link has-dropdown">
                     <i data-feather="filter"></i>
-                    <span class="font-bold">Filtros</span>
+                    <span class="font-bold">Setores</span>
                 </a>
 
                 <ul class="dropdown-menu">
-                    <li>
+                    <li class="active">
                         <a class="nav-link" href="javascript:void(0)">
-                            Cores
+                            Todas
                         </a>
                     </li>
+
+                    <li>
+                        <a class="nav-link" href="javascript:void(0)">
+                            Novidades
+                        </a>
+                    </li>
+
+                    <li>
+                        <a class="nav-link" href="javascript:void(0)">
+                            Promoção
+                        </a>
+                    </li>
+
                 </ul>
 
             </li>

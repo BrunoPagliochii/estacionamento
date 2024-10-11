@@ -1,7 +1,6 @@
 <?php
 $dados = array(
-    'NomePagina' => 'Cadastro de Grupos',
-    'MenuModulo' => 'Estoque'
+    'NomePagina' => 'ALL DRIP - Carinho',
 );
 ?>
 

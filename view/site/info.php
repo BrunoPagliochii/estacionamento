@@ -1,3 +1,9 @@
+<?php
+$dados = array(
+    'NomePagina' => 'ALL DRIP - Info',
+);
+?>
+
 <?php include('layouts/body.php') ?>
 
 <div class="card">
@@ -10,7 +16,7 @@
             Envio
         </h4>
         <h6 class="text-black">
-            - O prazo de entrega pode variar de acordo com o método selecionado e o local de entrega. Para consultar, basta colocar o CEP do endereço desejado no fechamento da compra e consultar o prazo disponibilizado pelas transportadoras. Eles começam a contar a partir do envio da mercadoria, o que pode ocorrer em até 3 (três) dias úteis da compra.
+            - O prazo de entrega pode variar de acordo com o método selecionado e o local de entrega. Para consultar, basta colocar o CEP do endereço desejado no fechamento da compra e consultar o prazo disponibilizado pelas transportadoras. Eles começam a contar a partir do envio da mercadoria, o que pode ocorrer em até 3 (três) dias úteis após a compra.
             <br><br>
             - Em datas de lançamento e promoções, esse prazo para envio pode ser dobrado.
         </h6>
