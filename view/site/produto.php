@@ -14,7 +14,7 @@ $dados = array(
                 <div class="row">
 
                     <div class="col-12 align-items-center">
-                        <img id="imagemPrincipal" alt="image" src="<?= URL_BASE_HOST ?>/public/assets/img/teste.jpg" class="img-thumbnail img-fluid" width="600" height="600" />
+                        <img id="imagemPrincipal" alt="image" src="<?= URL_BASE_HOST ?>/public/assets/img/teste.jpg" class="img-thumbnail img-fluid w-100" />
                     </div>
 
                     <div class="col-12">
@@ -43,14 +43,14 @@ $dados = array(
             </div>
             <div class="col-12 col-md-6">
                 <div class="row">
-                    <div class="col-12 mt-5">
+                    <div class="col-12">
                         <h1 class="text-center font-bold text-black">Work Jacket Hammer Grey</h1>
                         <h3 class="text-center">
                             <del class="text-secondary">R$ 739,00</del>&nbsp;
                             <span class="font-bold text-black">R$ 739,00</span>
                         </h3>
                     </div>
-                    <div class="col-12 mt-2 mt-md-5">
+                    <div class="col-12 mt-2 mt-md-3">
                         <div class="form-group">
                             <label class="form-label mb-0">Selecione o tamanho</label>
                             <div class="selectgroup w-100">
@@ -75,7 +75,19 @@ $dados = array(
                     </div>
 
                     <div class="col-12">
-                        <div class="form-group mb-3">
+                        <h6>Detalhes do produto:</h6>
+                        <ul>
+                            <li>100% algodão</li>
+                            <li>Estampa DTF</li>
+                            <li>240 g/m²</li>
+                            <li>Ribana 2x1</li>
+                            <li>Gráficos Doodles bordados frente e costas</li>
+                            <li>Modelagem oversized</li>
+                        </ul>
+                    </div>
+
+                    <div class="col-12 mt-2">
+                        <div class="form-group mb-2">
                             <label for="cep">Calcular prazo de entrega</label>
                             <input type="text" id="cep" name="cep" onkeyup="consultarFrete()" placeholder="00000-000" class="form-control">
                         </div>
@@ -116,7 +128,7 @@ $dados = array(
 
                     </div>
 
-                    <div class="col-12 mt-2 mt-md-2">
+                    <div class="col-12 mt-2 mt-md-3">
                         <div class="accordion border">
                             <div class="accordion-header bg-black" role="button" data-bs-toggle="collapse" data-bs-target="#painelPagamento" aria-expanded="true">
                                 <h4>Formas de pagamento</h4>

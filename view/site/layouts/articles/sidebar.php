@@ -4,7 +4,7 @@
         <div class="sidebar-brand h-100">
             <a href="<?= URL_BASE_HOST ?>/view/site/index.php">
                 <div class="sidebar-user-picture">
-                    <img width="150" alt="image" src="<?= URL_BASE_HOST ?>/public/assets/img/logo.png" />
+                    <img width="150" alt="image" class="img-fluid" src="<?= URL_BASE_HOST ?>/public/assets/img/logo.png" />
                 </div>
             </a>
         </div>
