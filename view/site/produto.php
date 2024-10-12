@@ -78,12 +78,17 @@ $dados = array(
                         <h6>Detalhes do produto:</h6>
                         <ul>
                             <li>100% algodão</li>
-                            <li>Estampa DTF</li>
                             <li>240 g/m²</li>
                             <li>Ribana 2x1</li>
-                            <li>Gráficos Doodles bordados frente e costas</li>
+                            <li>Gráficos Doodles estampados em DTF</li>
                             <li>Modelagem oversized</li>
                         </ul>
+                    </div>
+
+                    <div class="col-12 mt-2">
+                        <a href="javascript:void(0)" class="btn btn-icon icon-left btn-dark">
+                            <i class="fas fa-cart-plus"></i>&nbsp;Adicionar ao carrinho
+                        </a>
                     </div>
 
                     <div class="col-12 mt-2">
@@ -93,8 +98,9 @@ $dados = array(
                         </div>
 
                         <div class="accordion border">
-                            <div class="accordion-header bg-black" role="button" data-bs-toggle="collapse" data-bs-target="#painel-Frete" aria-expanded="false">
+                            <div class="accordion-header bg-black d-flex justify-content-between align-items-center" role="button" data-bs-toggle="collapse" data-bs-target="#painel-Frete" aria-expanded="false">
                                 <h4>Prazo de entrega</h4>
+                                <i class="fas fa-chevron-down"></i>
                             </div>
                             <div class="accordion-body collapse" id="painel-Frete" data-parent="#accordion">
                                 <table class="table table-sm table-hover">
@@ -130,10 +136,11 @@ $dados = array(
 
                     <div class="col-12 mt-2 mt-md-3">
                         <div class="accordion border">
-                            <div class="accordion-header bg-black" role="button" data-bs-toggle="collapse" data-bs-target="#painelPagamento" aria-expanded="true">
+                            <div class="accordion-header bg-black d-flex justify-content-between align-items-center" role="button" data-bs-toggle="collapse" data-bs-target="#painelPagamento" aria-expanded="false">
                                 <h4>Formas de pagamento</h4>
+                                <i class="fas fa-chevron-down"></i>
                             </div>
-                            <div class="accordion-body collapse show" id="painelPagamento" data-parent="#accordion">
+                            <div class="accordion-body collapse" id="painelPagamento" data-parent="#accordion">
                                 <table class="table table-sm table-hover">
                                     <thead>
                                         <tr>
@@ -169,6 +176,7 @@ $dados = array(
                         </div>
                     </div>
 
+
                     <div class="col-12 align-items-center">
                         <img alt="image" src="https://cdn.highcompanybr.com/wp-content/uploads/2024/10/D7_Tee_Dondi_SizeChart.jpg" class="img-thumbnail img-fluid" width="600" height="600" />
                     </div>
@@ -188,4 +196,19 @@ $dados = array(
     }
 
     $('#cep').mask('00000-000');
+
+    document.querySelectorAll('.accordion-header').forEach(header => {
+        header.addEventListener('click', function() {
+            let icon = this.querySelector('i');
+            let isCollapsed = this.getAttribute('aria-expanded') === 'true';
+
+            if (isCollapsed) {
+                icon.classList.remove('fa-chevron-down');
+                icon.classList.add('fa-chevron-up');
+            } else {
+                icon.classList.remove('fa-chevron-up');
+                icon.classList.add('fa-chevron-down');
+            }
+        });
+    });
 </script>
