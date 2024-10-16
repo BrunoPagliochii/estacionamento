@@ -2,7 +2,7 @@
     <aside id="sidebar-wrapper">
 
         <div class="sidebar-brand h-100">
-            <a href="<?= URL_BASE_HOST ?>/view/site/index.php">
+            <a href="<?= URL_BASE_HOST ?>/view/admin/index.php">
                 <div class="sidebar-user-picture">
                     <img width="150" alt="image" class="img-fluid" src="<?= URL_BASE_HOST ?>/public/assets/img/logo.png" />
                 </div>

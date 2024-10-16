@@ -38,10 +38,18 @@ if ($dadossiderbar = $result->fetch_assoc()) {
 }
 // --------------------------------------------------------------------
 
-if ($_POST["JQueryFunction"] == 'preencherTabelaDeAliquotasIcms') {
+if ($_POST["JQueryFunction"] == 'preencherTabelaDeCfop') {
     $response = array();
 
-    $resultado = $conexao->query("SELECT ID, ATIVO, DESCRICAO, BASE_ICMS, BASE_ICMS_FE, BASE_ICMS_ST, AC, AL, AM, AP, BA, CE, DF, ES, `GO`, MA, MG, MS, MT, PA, PB, PE, PI, PR, RJ, RN, RO, RO, RR, RS, SC, SE, SP, `TO`, DIFERIMENTO FROM FIS_TAXAS_ICMS WHERE EMPRESA_ID = $IDEMPRESAUSUARIOMODEL");
+    $resultado = $conexao->query("SELECT 
+        ID,
+        DESCRICAO,
+        CODIGO,
+        MOVIMENTA_ESTOQUE,
+        CALCULA_IPI,
+        RETENCAO,
+        ATIVO
+    FROM FIS_CFOP WHERE EMPRESA_ID = $IDEMPRESAUSUARIOMODEL");
     if (!$resultado) {
         die("Erro na consulta: " . $conexao->error);
     }
@@ -49,40 +57,12 @@ if ($_POST["JQueryFunction"] == 'preencherTabelaDeAliquotasIcms') {
     while ($dados = $resultado->fetch_assoc()) {
         $response[] = array(
             'id' => $dados['ID'],
-            'ativo' => $dados['ATIVO'],
             'descricao' => $dados['DESCRICAO'],
-            'base_icms' => $dados['BASE_ICMS'],
-            'base_icms_fe' => $dados['BASE_ICMS_FE'],
-            'base_icms_st' => $dados['BASE_ICMS_ST'],
-            'ac' => $dados['AC'],
-            'al' => $dados['AL'],
-            'am' => $dados['AM'],
-            'ap' => $dados['AP'],
-            'ba' => $dados['BA'],
-            'ce' => $dados['CE'],
-            'df' => $dados['DF'],
-            'es' => $dados['ES'],
-            'go' => $dados['GO'],
-            'ma' => $dados['MA'],
-            'mg' => $dados['MG'],
-            'ms' => $dados['MS'],
-            'mt' => $dados['MT'],
-            'pa' => $dados['PA'],
-            'pb' => $dados['PB'],
-            'pe' => $dados['PE'],
-            'pi' => $dados['PI'],
-            'pr' => $dados['PR'],
-            'rj' => $dados['RJ'],
-            'rn' => $dados['RN'],
-            'ro' => $dados['RO'],
-            'ro' => $dados['RO'],
-            'rr' => $dados['RR'],
-            'rs' => $dados['RS'],
-            'sc' => $dados['SC'],
-            'se' => $dados['SE'],
-            'sp' => $dados['SP'],
-            'to' => $dados['TO'],
-            'diferimento' => $dados['DIFERIMENTO'],
+            'codigo' => $dados['CODIGO'],
+            'movimenta_estoque' => $dados['MOVIMENTA_ESTOQUE'],
+            'calcula_ipi' => $dados['CALCULA_IPI'],
+            'retencao' => $dados['RETENCAO'],
+            'ativo' => $dados['ATIVO'],
         );
     }
 
