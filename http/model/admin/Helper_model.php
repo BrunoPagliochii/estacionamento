@@ -16,9 +16,7 @@ if (file_exists('../lib/PHP_conecta.php')) {
 // --------------------------------------------------------------------
 $emailUsuario_token = validateJWTToken();
 // --------------------------------------------------------------------
-$query = "SELECT A.NOME, A.EMAIL, A.ID, B.RAZAO_SOCIAL, A.EMPRESA_ID FROM BD_USUARIOS A 
-          INNER JOIN BD_EMPRESAS B ON B.ID = A.EMPRESA_ID 
-          WHERE A.ATIVO = 'S' AND B.ATIVO = 'S' AND A.EMAIL = ?";
+$query = "SELECT A.NOME, A.EMAIL, A.ID FROM BD_USUARIOS A WHERE A.ATIVO = 'S' AND A.EMAIL = ?";
 
 $stmt = $conexao->prepare($query);
 $stmt->bind_param('s', $emailUsuario_token);
@@ -29,8 +27,6 @@ if ($dadossiderbar = $result->fetch_assoc()) {
   $IDUSUARIOMODEL = $dadossiderbar['ID'];
   $NOMEUSUARIOMODEL = $dadossiderbar['NOME'];
   $EMAILUSUARIOMODEL = $dadossiderbar['EMAIL'];
-  $EMPRESAUSUARIOMODEL = $dadossiderbar['RAZAO_SOCIAL'];
-  $IDEMPRESAUSUARIOMODEL = $dadossiderbar['EMPRESA_ID'];
 }
 
 // Define o fuso horário, se necessário

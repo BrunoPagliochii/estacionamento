@@ -620,9 +620,23 @@ function numberFormat(valor) {
   return valor;
 }
 
-// Função para formatar a data de "AAAA-MM-DD" para "DD/MM/AAAA"
+// Função para formatar a data de "AAAA-MM-DD HH:mm:ss" para "DD/MM/AAAA às HH:mm"
 function formatDate(dateTime) {
-  let datePart = dateTime.split(" ")[0]; // Pega apenas a parte da data (ignora o tempo)
+  // Verifica se dateTime está definido e é uma string
+  if (typeof dateTime !== "string" || !dateTime) {
+    console.error("Data inválida:", dateTime);
+    return ""; // Retorna uma string vazia ou você pode optar por lançar um erro
+  }
+
+  let [datePart, timePart] = dateTime.split(" "); // Separa a data e o tempo
   let [year, month, day] = datePart.split("-"); // Separa ano, mês e dia
-  return `${day}/${month}/${year}`; // Retorna no formato desejado
+  let [hours, minutes] = timePart ? timePart.split(":") : ["00", "00"]; // Separa horas e minutos (definindo padrão se não houver hora)
+
+  // Verifica se a data tem o formato esperado
+  if (year && month && day && hours && minutes) {
+    return `${day}/${month}/${year} às ${hours}:${minutes}`; // Retorna no formato desejado
+  } else {
+    console.error("Formato de data inválido:", dateTime);
+    return ""; // Retorna uma string vazia ou você pode optar por lançar um erro
+  }
 }

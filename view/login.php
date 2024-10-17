@@ -23,7 +23,7 @@ if (isset($_ENV['JWT_NAME'])) {
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-    <title><?= $title ?? 'AllDrip' ?></title>
+    <title><?= $title ?? 'estacionamento' ?></title>
 
     <!-- General CSS Files -->
     <link rel="stylesheet" href="<?= URL_BASE_HOST ?>/public/template/assets/css/app.min.css">
@@ -61,11 +61,6 @@ if (isset($_ENV['JWT_NAME'])) {
                         <div class="form-group">
                             <div class="d-block">
                                 <label for="password" class="control-label">Senha</label>
-                                <div class="float-right">
-                                    <a href="javascript:void(0)" class="text-small">
-                                        Recuperar senha?
-                                    </a>
-                                </div>
                             </div>
                             <input id="password" type="password" class="form-control" name="password" tabindex="2" required>
                         </div>

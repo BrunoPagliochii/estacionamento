@@ -20,9 +20,7 @@ if (file_exists('../lib/PHP_conecta.php')) {
 // --------------------------------------------------------------------
 $emailUsuario_token = validateJWTToken();
 // --------------------------------------------------------------------
-$query = "SELECT A.NOME, A.EMAIL, A.ID, B.RAZAO_SOCIAL, A.EMPRESA_ID FROM BD_USUARIOS A 
-          INNER JOIN BD_EMPRESAS B ON B.ID = A.EMPRESA_ID 
-          WHERE A.ATIVO = 'S' AND B.ATIVO = 'S' AND A.EMAIL = ?";
+$query = "SELECT A.NOME, A.EMAIL, A.ID FROM BD_USUARIOS A WHERE A.ATIVO = 'S' AND A.EMAIL = ?";
 
 $stmt = $conexao->prepare($query);
 $stmt->bind_param('s', $emailUsuario_token);
@@ -33,19 +31,17 @@ if ($dadossiderbar = $result->fetch_assoc()) {
     $IDUSUARIOMODEL = $dadossiderbar['ID'];
     $NOMEUSUARIOMODEL = $dadossiderbar['NOME'];
     $EMAILUSUARIOMODEL = $dadossiderbar['EMAIL'];
-    $EMPRESAUSUARIOMODEL = $dadossiderbar['RAZAO_SOCIAL'];
-    $IDEMPRESAUSUARIOMODEL = $dadossiderbar['EMPRESA_ID'];
 }
 // --------------------------------------------------------------------
-
-if ($_POST["JQueryFunction"] == 'novoCsosn') {
+if ($_POST["JQueryFunction"] == 'novoUsuario') {
     $response = array();
 
-    $codigo = $_POST['codigo'];
-    $descricao = $_POST['descricao'];
+    $nome = $_POST['nome'];
+    $email = $_POST['email'];
+    $senha = password_hash($_POST['senha'], PASSWORD_BCRYPT);
 
-    $query = "INSERT INTO FIS_CSOSN (CODIGO, DESCRICAO, INCLUIDOPOR, INCLUIDOEM)
-    VALUES ('$codigo', '$descricao', '$IDUSUARIOMODEL', NOW())";
+    $query = "INSERT INTO BD_USUARIOS (NOME, EMAIL, SENHA, TIPO, INCLUIDOPOR, INCLUIDOEM)
+    VALUES ('$nome', '$email', '$senha', 3, '$IDUSUARIOMODEL', NOW())";
 
     if (mysqli_query($conexao, $query)) {
         $last_id = mysqli_insert_id($conexao);
@@ -54,8 +50,8 @@ if ($_POST["JQueryFunction"] == 'novoCsosn') {
             'status' =>  'success',
             'msg' =>  'Cadastro Realizado com Sucesso!',
             'id' => $last_id,
-            'descricao' => $descricao,
-            'codigo' => $codigo,
+            'nome' => $nome,
+            'email' => $email,
             'ativo' => 'S',
         );
     } else {
@@ -68,24 +64,36 @@ if ($_POST["JQueryFunction"] == 'novoCsosn') {
     echo json_encode($response);
 }
 
-if ($_POST["JQueryFunction"] == 'editarCsosn') {
+
+if ($_POST["JQueryFunction"] == 'editarUsuario') {
     $response = array();
 
-    $id = $_POST['id'];
-    $descricao = $_POST['descricao'];
-    $codigo = $_POST['codigo'];
+    $idUsuario = $_POST['idUsuario'];
+    $nome = $_POST['nome'];
+    $email = $_POST['email'];
 
-    $query = "UPDATE FIS_CSOSN SET
-        DESCRICAO = '$descricao',
-        CODIGO = '$codigo',
+    if(isset($_POST['senha']) && $_POST['senha'] != null && $_POST['senha'] != ''){
+        $senha = password_hash($_POST['senha'], PASSWORD_BCRYPT);
+        // Query de update
+        $query = "UPDATE BD_USUARIOS SET
+            NOME = '$nome',
+            EMAIL = '$email', 
+            SENHA = '$senha', 
+            ALTERADOPOR = '$IDUSUARIOMODEL',
+            ALTERADOEM = NOW()
+        WHERE idUsuario = '$idCor'";
+    } else {
+        $query = "UPDATE BD_USUARIOS SET
+        NOME = '$nome',
+        EMAIL = '$email',
         ALTERADOPOR = '$IDUSUARIOMODEL',
         ALTERADOEM = NOW()
-    WHERE ID = '$id'";
+    WHERE idUsuario = '$idCor'";
+    }
 
     if (mysqli_query($conexao, $query)) {
         // Após o update, buscar os dados atualizados incluindo a coluna ATIVO
-        $selectQuery = "SELECT DESCRICAO, CODIGO, ATIVO FROM FIS_CSOSN 
-        WHERE ID = '$id'";
+        $selectQuery = "SELECT NOME, EMAIL, ATIVO FROM BD_USUARIOS WHERE ID = '$idUsuario'";
 
         $resultado = mysqli_query($conexao, $selectQuery);
 
@@ -95,9 +103,9 @@ if ($_POST["JQueryFunction"] == 'editarCsosn') {
             $response = array(
                 'status' => 'success',
                 'msg' => 'Cadastro foi Alterado com Sucesso!',
-                'id' => $id,
-                'descricao' => $dados['DESCRICAO'],
-                'codigo' => $dados['CODIGO'],
+                'id' => $idUsuario,
+                'nome' => $dados['NOME'],
+                'email' => $dados['EMAIL'],
                 'ativo' => $dados['ATIVO']
             );
         } else {
@@ -116,10 +124,11 @@ if ($_POST["JQueryFunction"] == 'editarCsosn') {
     echo json_encode($response);
 }
 
-if ($_POST["JQueryFunction"] == 'inativarCsosn') {
+
+if ($_POST["JQueryFunction"] == 'inativarUsuario') {
     $response = array();
 
-    $id = $_POST['id'];
+    $ID = $_POST['ID'];
     $status = $_POST['status'];
 
     if ($status == 'S') {
@@ -128,15 +137,15 @@ if ($_POST["JQueryFunction"] == 'inativarCsosn') {
         $status = 'S';
     }
 
-    $query = "UPDATE FIS_CSOSN SET
+    $query = "UPDATE BD_USUARIOS SET
         ATIVO = '$status',
         ALTERADOPOR = '$IDUSUARIOMODEL',
         ALTERADOEM = NOW()
-    WHERE ID = '$id'";
+    WHERE ID = '$ID'";
 
     if (mysqli_query($conexao, $query)) {
         // Após o update, buscar os dados atualizados incluindo a coluna ATIVO
-        $selectQuery = "SELECT CODIGO, DESCRICAO, ATIVO FROM FIS_CSOSN WHERE ID = '$id'";
+        $selectQuery = "SELECT NOME, EMAIL, ATIVO FROM BD_USUARIOS WHERE ID = '$ID'";
 
         $resultado = mysqli_query($conexao, $selectQuery);
 
@@ -146,9 +155,9 @@ if ($_POST["JQueryFunction"] == 'inativarCsosn') {
             $response = array(
                 'status' => 'success',
                 'msg' => 'Cadastro foi Alterado com Sucesso!',
-                'id' => $id,
-                'descricao' => $dados['DESCRICAO'],
-                'codigo' => $dados['CODIGO'],
+                'id' => $ID,
+                'nome' => $dados['NOME'],
+                'email' => $dados['EMAIL'],
                 'ativo' => $dados['ATIVO']
             );
         } else {
@@ -157,29 +166,6 @@ if ($_POST["JQueryFunction"] == 'inativarCsosn') {
                 'msg' => 'Erro ao buscar dados atualizados.'
             );
         }
-    } else {
-        $response = array(
-            'status' => 'error',
-            'msg' => mysqli_error($conexao)
-        );
-    }
-
-    echo json_encode($response);
-}
-
-if ($_POST["JQueryFunction"] == 'deletarCsosn') {
-    $response = array();
-
-    $id = $_POST['id'];
-
-    $query = "DELETE FROM FIS_CSOSN WHERE ID = '$id'";
-
-    if (mysqli_query($conexao, $query)) {
-        $response = array(
-            'status' => 'success',
-            'id' => $id,
-            'msg' => 'Cadastro foi excluído!',
-        );
     } else {
         $response = array(
             'status' => 'error',

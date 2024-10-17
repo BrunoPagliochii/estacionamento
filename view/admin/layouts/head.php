@@ -34,7 +34,7 @@ if (isset($_ENV['JWT_NAME'])) {
 <head>
 	<meta charset="UTF-8">
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-	<title><?= $dados['NomePagina'] ?? 'AllDrip' ?></title>
+	<title><?= $dados['NomePagina'] ?? 'Estacionamento' ?></title>
 
 	<?php
 	if (file_exists('layouts/styles.php')) {

@@ -25,12 +25,7 @@ if (isset($_ENV['JWT_NAME'])) {
 $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING);
 $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
 
-$query = "SELECT A.ID, A.NOME, A.EMAIL, A.SENHA AS PASSWORD 
-          FROM BD_USUARIOS A
-          INNER JOIN BD_EMPRESAS B ON B.ID = A.EMPRESA_ID
-          WHERE A.ATIVO = 'S'
-          AND B.ATIVO = 'S'
-          AND A.EMAIL = ?";
+$query = "SELECT ID, NOME, EMAIL, SENHA AS PASSWORD FROM BD_USUARIOS A WHERE ATIVO = 'S' AND EMAIL = ?";
 
 $stmt = $conexao->prepare($query);
 $stmt->bind_param('s', $email);
