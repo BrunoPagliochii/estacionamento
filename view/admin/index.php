@@ -64,6 +64,7 @@ $dados = array(
                     </tr>
                 </thead>
                 <tbody></tbody>
+                <tfoot></tfoot>
             </table>
         </div>
     </div>
@@ -211,6 +212,7 @@ $dados = array(
                         ];
 
                         updateRowInTable('#tabelaDeEstacionados', 'rowEstacionado_', +response.id, rowData);
+                        updateTfootFromTable('#tabelaDeEstacionados', [5]);
 
                     });
                 }
@@ -299,6 +301,9 @@ $dados = array(
                         $('#modelo').val(null);
                         $('#cor').val(null);
                         $('#horaEntrada').val(null);
+                     
+                        updateTfootFromTable('#tabelaDeEstacionados', [5]);
+
                     }
                     exibirToastr(response.msg, response.status);
                 }
@@ -329,6 +334,7 @@ $dados = array(
                     if (response.status == 'success') {
                         removeRowFromTable('#tabelaDeEstacionados', 'rowEstacionado_', +id);
                     }
+                    updateTfootFromTable('#tabelaDeEstacionados', [5]);
                 }
             });
         }
@@ -435,6 +441,7 @@ $dados = array(
                     ];
 
                     updateRowInTable('#tabelaDeEstacionados', 'rowEstacionado_', +response.id, rowData);
+                    updateTfootFromTable('#tabelaDeEstacionados', [5]);
 
                     $('#idEstacionamentoPag').val(null);
                     $('#valorFinal').val(null);
@@ -484,6 +491,7 @@ $dados = array(
                     $('#valorFinal').val(null);
                     $('#formaPagamento').val(null);
                     $('#modal-finalizar').modal('hide');
+                    updateTfootFromTable('#tabelaDeEstacionados', [5]); 
                 }
             }
         });

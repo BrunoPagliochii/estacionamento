@@ -498,30 +498,27 @@ function moeda(a, e, r, t) {
   return !1;
 }
 
+
 function updateRowInTable(tableId, prefix, id, rowData) {
   // Verifica se a tabela já foi inicializada como DataTable
-  if (!$.fn.DataTable.isDataTable(tableId)) {
+  if (!$.fn.DataTable.isDataTable($(tableId))) {
     initDataTable(tableId.substring(1)); // Remove o '#' do ID e inicializa o DataTable
   }
 
   let table = $(tableId).DataTable();
   let rowId = prefix + id;
 
-  // Verifica se a linha já existe
-  let existingRow = table.row(function (idx, data, node) {
-    return $(node).attr("id") === rowId;
-  });
+  // Verifica se a linha já existe com base no ID
+  let existingRow = table.row('#' + rowId);
 
-  if (existingRow.length) {
+  if (existingRow.node()) {
     // Se a linha já existe, atualize os dados
     existingRow.data(rowData).draw();
   } else {
-    // Se a linha não existe, adicione uma nova linha
-    table.row.add(rowData).draw();
-
-    // Após adicionar a linha, configura o ID corretamente
-    let lastRowNode = $(table.table().body()).find("tr:last");
-    lastRowNode.attr("id", rowId);
+    // Se a linha não existe, adicione uma nova linha e configure o ID corretamente
+    let newRowNode = table.row.add(rowData).node();
+    $(newRowNode).attr("id", rowId); // Define o ID diretamente no node da nova linha
+    table.draw();
   }
 }
 
