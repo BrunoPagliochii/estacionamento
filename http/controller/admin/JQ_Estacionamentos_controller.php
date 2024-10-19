@@ -37,9 +37,9 @@ if ($_POST["JQueryFunction"] == 'novoEstacionamento') {
     $response = array();
 
     $horaEntrada = $_POST['horaEntrada'];
-    $modelo = (!isset($_POST["modelo"]) || $_POST["modelo"] == '') ? 'NULL' : "'" . $_POST["modelo"] . "'";
-    $placa = (!isset($_POST["placa"]) || $_POST["placa"] == '') ? 'NULL' : "'" . $_POST["placa"] . "'";
-    $cor = (!isset($_POST["cor"]) || $_POST["cor"] == '') ? 'NULL' : "'" . $_POST["cor"] . "'";
+    $modelo = (!isset($_POST["modelo"]) || $_POST["modelo"] == '') ? 'NULL' : "'" . trim(strtoupper($_POST["modelo"])) . "'";
+    $placa = (!isset($_POST["placa"]) || $_POST["placa"] == '') ? 'NULL' : "'" . trim(strtoupper($_POST["placa"])) . "'";
+    $cor = (!isset($_POST["cor"]) || $_POST["cor"] == '') ? 'NULL' : "'" . trim(strtoupper($_POST["cor"])) . "'";
 
     $dateTime = DateTime::createFromFormat('Y-m-d\TH:i', $horaEntrada);
     if ($dateTime) {

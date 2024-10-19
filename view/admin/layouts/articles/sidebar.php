@@ -44,6 +44,12 @@
                         </a>
                     </li>
 
+                    <li class="<?= (($dados['NomePagina'] == 'Relatórios') ? 'active' : '') ?>">
+                        <a class="nav-link" href="<?= URL_BASE_HOST ?>/view/admin/relatorios.php">
+                            Relatórios
+                        </a>
+                    </li>
+
                 </ul>
             </li>
 
